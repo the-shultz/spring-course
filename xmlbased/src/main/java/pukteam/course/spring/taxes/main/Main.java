@@ -17,7 +17,8 @@ public class Main {
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
 
-        TaxCalculator calculator = ctx.getBean("calculator", TaxCalculator.class);
+
+        TaxCalculator calculator = ctx.getBean("calculatorFromFactory", TaxCalculator.class);
         Map<String, Person> personList = ctx.getBean("personList", Map.class);
 
         personList.forEach( (name, person) -> {

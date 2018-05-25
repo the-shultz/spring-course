@@ -25,8 +25,15 @@
         <ref bean="upperTaxRate"/>
     </util:list>
 
-    <bean id="calculator"
-          class="pukteam.course.spring.taxes.calculator.TaxCalculatorImpl">
+    <bean id="taxCalculatorFactory"
+          class="pukteam.course.spring.taxes.calculator.TaxCalculatorFactory"
+          factory-method="obtainFactory">
+        <constructor-arg value="1000"/>
+    </bean>
+
+    <bean id="calculatorFromFactory"
+          factory-bean="taxCalculatorFactory"
+          factory-method="obtainCalculator">
         <constructor-arg ref="taxRates"/>
     </bean>
 
