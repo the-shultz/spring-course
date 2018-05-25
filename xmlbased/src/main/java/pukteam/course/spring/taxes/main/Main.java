@@ -17,16 +17,10 @@ public class Main {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
 
         TaxCalculator calculator = ctx.getBean("calculator", TaxCalculator.class);
-        //TaxCalculator calculator = ctx.getBean(TaxCalculator.class);
 
-        Person menash = new Person();
-        menash.setIncome(4000);
-
-        Person tikva = new Person();
-        tikva.setIncome(40000);
-
-        Person simcha = new Person();
-        simcha.setIncome(15000);
+        Person menash = ctx.getBean("menash", Person.class);
+        Person tikva = ctx.getBean("tikva", Person.class);
+        Person simcha = ctx.getBean("simcha", Person.class);
 
         int taxRate = calculator.calc(menash);
         logger.info("Menash has income of " + menash.getIncome() + " and needs to pay tax: " + taxRate);

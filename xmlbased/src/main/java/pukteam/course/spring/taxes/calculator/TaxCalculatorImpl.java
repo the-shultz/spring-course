@@ -12,7 +12,7 @@ public class TaxCalculatorImpl implements TaxCalculator {
     private Set<TaxLimit> taxLimits;
 
     public TaxCalculatorImpl() {
-        taxLimits = new TreeSet<TaxLimit>();
+        taxLimits = new TreeSet<>();
         taxLimits.add(new TaxLimit(10000, 20));
         taxLimits.add(new TaxLimit(20000, 30));
     }
