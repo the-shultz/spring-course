@@ -7,10 +7,15 @@ public class Person {
     private int income;
     private Gender gender;
     private Status status;
+    private Counter counter;
 
     public Person(int id, int income) {
         this.id = id;
         this.income = income;
+    }
+
+    public void setCounter(Counter counter) {
+        this.counter = counter;
     }
 
     public void setAge(int age) {
@@ -34,6 +39,7 @@ public class Person {
     }
 
     public int getIncome() {
+        counter.increaseCounter();
         return income;
     }
 
@@ -43,5 +49,9 @@ public class Person {
 
     public Status getStatus() {
         return status;
+    }
+
+    public int getCounterForIncomeRequests() {
+        return counter.getCount();
     }
 }
