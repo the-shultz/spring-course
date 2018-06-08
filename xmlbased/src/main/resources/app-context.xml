@@ -99,4 +99,5 @@
 
     <bean id="c" class="pukteam.course.spring.autowire.C"/>
 
+    <bean class="pukteam.course.spring.taxes.model.PersonMapBeansPostProcessor"/>
 </beans>
