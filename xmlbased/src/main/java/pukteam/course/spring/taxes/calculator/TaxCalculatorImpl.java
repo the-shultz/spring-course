@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContextAware;
 import pukteam.course.spring.taxes.model.Gender;
 import pukteam.course.spring.taxes.model.Person;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.*;
 
 public class TaxCalculatorImpl implements TaxCalculator, BeanNameAware, ApplicationContextAware {
@@ -18,15 +20,36 @@ public class TaxCalculatorImpl implements TaxCalculator, BeanNameAware, Applicat
     private int boost;
     private String beanName;
     private ApplicationContext applicationContext;
+    private int electionDiscount;
 
     public TaxCalculatorImpl(List<TaxLimit> taxLimits, int boost) {
         this.taxLimits = taxLimits;
         this.boost = boost;
     }
 
-    public int calc(final Person person) {
-        int personIncome = person.getIncome();
+    @PostConstruct
+    public void init() {
+        if (taxLimits.size() > 1 && Math.random() > 0.5 ) {
+            electionDiscount = 100;
+        } else {
+            electionDiscount = 0;
+        }
+        logger.info("Init of Tax calculator. Discount is set to {}", electionDiscount);
+    }
 
+    @PreDestroy
+    public void destroy() {
+        logger.info("destroying tax calculator...");
+    }
+
+    public int calc(final Person person) {
+
+        if (person.getAge() < 18 ) {
+            logger.warn("Not calculating taxes for minors...");
+            return 0;
+        }
+
+        int personIncome = person.getIncome();
         logger.info("bean [{}]: Calculating tax information for person id [{}]. Income: {}", beanName, person.getId(), personIncome);
         TaxLimit taxLimit = taxLimits
                 .stream()
@@ -43,9 +66,14 @@ public class TaxCalculatorImpl implements TaxCalculator, BeanNameAware, Applicat
             logger.debug("Person gender is FEMALE. reducing her taxes with {}", taxDeduction, boost);
             taxDeduction -= boost;
             taxDeduction = Math.max(0, taxDeduction);
-            logger.debug("final tax is {}", taxDeduction);
         }
 
+        if (electionDiscount > 0 && taxDeduction > electionDiscount) {
+            taxDeduction -= electionDiscount;
+            logger.info("It's your lucky day ! due to election promise another {} were deduced from your taxes !", electionDiscount);
+        }
+
+        logger.debug("final tax is {}", taxDeduction);
         return taxDeduction;
     }
 

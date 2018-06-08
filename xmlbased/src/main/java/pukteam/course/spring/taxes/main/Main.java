@@ -3,6 +3,8 @@ package pukteam.course.spring.taxes.main;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pukteam.course.spring.taxes.calculator.TaxCalculator;
 import pukteam.course.spring.taxes.model.Person;
@@ -15,9 +17,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
+        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
 
+        ctx.registerShutdownHook();
 
+        logger.info("====   Starting main work   ====");
         TaxCalculator calculator = ctx.getBean("calculatorFromFactory", TaxCalculator.class);
         Map<String, Person> personList = ctx.getBean("personList", Map.class);
 
@@ -30,6 +34,6 @@ public class Main {
             int count = person.getCounterForIncomeRequests();
             logger.info("{}'s income has been requested {} times so far...", name, count);
         });
-
+        logger.info("====   main is over...   ====");
     }
 }
