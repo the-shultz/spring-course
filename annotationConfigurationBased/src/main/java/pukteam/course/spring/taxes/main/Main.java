@@ -18,15 +18,23 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(TaxConfiguration.class);
+        AnnotationConfigApplicationContext ctx =
+                new AnnotationConfigApplicationContext(TaxConfiguration.class);
+        ctx.registerShutdownHook();
 
         logger.info("====   Starting main work   ====");
-        TaxCalculator calculator = ctx.getBean("taxCalculator", TaxCalculator.class);
+        TaxCalculator calculator = ctx.getBean("taxes-calc", TaxCalculator.class);
         Map<String, Person> personMap = ctx.getBean("personMap", Map.class);
 
         personMap.forEach( (name, person) -> {
             int taxRate = calculator.calc(person);
             logger.info("{} has income of {} and needs to pay tax: {}", name, person.getIncome(), taxRate);
+        });
+
+        logger.info("==========================");
+        personMap.forEach( (name, person) -> {
+            int count = person.getCounterForIncomeRequests();
+            logger.info("{}'s income has been requested {} times so far...", name, count);
         });
 
         logger.info("====   main is over...   ====");

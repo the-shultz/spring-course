@@ -59,7 +59,7 @@ public class Person {
     }
 
     public int getIncome() {
-        //counter.increaseCounter();
+        counter.increaseCounter();
         return income;
     }
 
