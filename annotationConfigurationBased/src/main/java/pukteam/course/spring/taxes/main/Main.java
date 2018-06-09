@@ -23,7 +23,7 @@ public class Main {
         ctx.registerShutdownHook();
 
         logger.info("====   Starting main work   ====");
-        TaxCalculator calculator = ctx.getBean("taxes-calc", TaxCalculator.class);
+        TaxCalculator calculator = ctx.getBean("taxes-calc-light", TaxCalculator.class);
         Map<String, Person> personMap = ctx.getBean("personMap", Map.class);
 
         personMap.forEach( (name, person) -> {
