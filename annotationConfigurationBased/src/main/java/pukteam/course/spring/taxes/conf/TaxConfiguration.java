@@ -18,7 +18,7 @@ import java.util.List;
 public class TaxConfiguration {
 
     @Autowired
-    @Qualifier("low")
+    @Qualifier("middleTaxRate")
     private TaxLimit lowRate;
 
     @Bean(name="taxes-calc-light")

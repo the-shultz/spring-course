@@ -20,6 +20,12 @@ public class Main {
 
         AnnotationConfigApplicationContext ctx =
                 new AnnotationConfigApplicationContext(TaxConfiguration.class);
+
+/*
+        ClassPathXmlApplicationContext ctx =
+                new ClassPathXmlApplicationContext("main-app-context.xml");
+*/
+
         ctx.registerShutdownHook();
 
         logger.info("====   Starting main work   ====");
