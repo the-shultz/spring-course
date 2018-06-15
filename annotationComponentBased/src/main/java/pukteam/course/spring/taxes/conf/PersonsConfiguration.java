@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@ComponentScan("pukteam.course.spring.taxes.model.person")
+@ComponentScan("pukteam.course.spring.taxes.model")
 public class PersonsConfiguration {
 
     @Autowired

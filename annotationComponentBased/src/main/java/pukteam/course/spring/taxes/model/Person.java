@@ -3,6 +3,8 @@ package pukteam.course.spring.taxes.model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.PostConstruct;
+
 public class Person {
 
     private static Logger logger = LogManager.getLogger(Person.class);
@@ -19,6 +21,7 @@ public class Person {
         this.income = income;
     }
 
+    @PostConstruct
     public void initializationValidation() {
         logger.info("Performing initialization validation on person {}", id);
         if (age < 18) {
