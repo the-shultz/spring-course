@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 import pukteam.course.spring.taxes.model.Gender;
-import pukteam.course.spring.taxes.model.Person;
+import pukteam.course.spring.taxes.model.person.Person;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

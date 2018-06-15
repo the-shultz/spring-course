@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import pukteam.course.spring.taxes.calculator.TaxCalculator;
 import pukteam.course.spring.taxes.conf.TaxConfiguration;
-import pukteam.course.spring.taxes.model.Person;
+import pukteam.course.spring.taxes.model.person.PersonRepository;
 
 import java.util.Map;
 
@@ -22,17 +22,17 @@ public class Main {
 
         logger.info("====   Starting main work   ====");
         TaxCalculator calculator = ctx.getBean("taxes-calc-light", TaxCalculator.class);
-        Map<String, Person> personMap = ctx.getBean("personMap", Map.class);
+        PersonRepository personRepository = ctx.getBean("personRepository", PersonRepository.class);
 
-        personMap.forEach( (name, person) -> {
+        personRepository.stream().forEach( person -> {
             int taxRate = calculator.calc(person);
-            logger.info("{} has income of {} and needs to pay tax: {}", name, person.getIncome(), taxRate);
+            logger.info("{} has income of {} and needs to pay tax: {}", person.getName(), person.getIncome(), taxRate);
         });
 
         logger.info("==========================");
-        personMap.forEach( (name, person) -> {
+        personRepository.stream().forEach( person -> {
             int count = person.getCounterForIncomeRequests();
-            logger.info("{}'s income has been requested {} times so far...", name, count);
+            logger.info("{}'s income has been requested {} times so far...", person.getName(), count);
         });
 
         logger.info("====   main is over...   ====");

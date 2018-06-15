@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.lang.Nullable;
+import pukteam.course.spring.taxes.model.person.Person;
 
 import java.util.HashSet;
 import java.util.Set;

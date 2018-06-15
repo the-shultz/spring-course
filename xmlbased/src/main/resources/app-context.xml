@@ -38,7 +38,7 @@
           factory-method="obtainCalculator" autowire="constructor">
     </bean>
 
-    <bean id="menash" class="pukteam.course.spring.taxes.model.Person"
+    <bean id="menash" class="pukteam.course.spring.taxes.model.person.Person"
             init-method="initializationValidation" destroy-method="destruction">
         <constructor-arg name="id" value="1"/>
         <constructor-arg name="income" value="4000"/>
@@ -48,7 +48,7 @@
         <property name="counter" ref="incomeRequestCounter"/>
     </bean>
 
-    <bean id="tikva" class="pukteam.course.spring.taxes.model.Person"
+    <bean id="tikva" class="pukteam.course.spring.taxes.model.person.Person"
           p:age="25"
           p:gender="FEMALE"
           p:status="SINGLE"
@@ -58,7 +58,7 @@
         <constructor-arg index="1" value="40000"/>
     </bean>
 
-    <bean id="simcha" class="pukteam.course.spring.taxes.model.Person"
+    <bean id="simcha" class="pukteam.course.spring.taxes.model.person.Person"
           init-method="initializationValidation" destroy-method="destruction">
         <constructor-arg name="id" value="3"/>
         <constructor-arg index="1" value="40000"/>

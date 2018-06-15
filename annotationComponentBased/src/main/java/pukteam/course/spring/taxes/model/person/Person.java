@@ -1,29 +1,44 @@
-package pukteam.course.spring.taxes.model;
+package pukteam.course.spring.taxes.model.person;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import pukteam.course.spring.taxes.model.Counter;
+import pukteam.course.spring.taxes.model.Gender;
+import pukteam.course.spring.taxes.model.Status;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 public class Person {
 
     private static Logger logger = LogManager.getLogger(Person.class);
 
     private int id;
+    private String name;
     private int age;
     private int income;
     private Gender gender;
     private Status status;
+
+    @Autowired
     private Counter counter;
 
-    public Person(int id, int income) {
+    public Person(int id, String name, int income) {
         this.id = id;
+        this.name = name;
         this.income = income;
     }
 
     @PostConstruct
     public void initializationValidation() {
         logger.info("Performing initialization validation on person {}", id);
+
+        if (counter == null) {
+            logger.error("Error ! counter wasn't injected properly. Creating it alone....");
+            counter = new Counter();
+        }
+
         if (age < 18) {
             logger.warn("Note ! person #{} is under the age of 18 (he is {} years old). No taxes for him...", id, age);
         }
@@ -32,7 +47,8 @@ public class Person {
             logger.error("Error ! person #{} has negative income !! {}", id, income);
         }
     }
-    
+
+    @PreDestroy
     public void destruction() {
         logger.info("Destroying person {}", id);
     }
@@ -55,6 +71,10 @@ public class Person {
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getAge() {
