@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="pukteam.course.spring.properties"/>
+    <context:property-placeholder location="classpath:app1.properties"/>
 
     <bean id="v8Engine" class="pukteam.course.spring.di.impl.engine.V8Engine">
-        <constructor-arg value="2000"/>
+        <constructor-arg value="${v8.engine}"/>
     </bean>
 
     <bean id="raceWheel" class="pukteam.course.spring.di.impl.wheel.RaceWheel" scope="prototype">
-        <property name="size" value="40"/>
-        <property name="pressure" value="35"/>
+        <property name="size" value="${race.wheel.size}"/>
+        <property name="pressure" value="${race.wheel.pressure}"/>
     </bean>
 
     <bean id="terrainWheel" class="pukteam.course.spring.di.impl.wheel.TerrainWheel" scope="prototype">
-        <property name="size" value="35"/>
-        <property name="pressure" value="20"/>
+        <property name="size" value="${terrain.wheel.size}"/>
+        <property name="pressure" value="${terrain.wheel.pressure}"/>
     </bean>
 
     <bean id="RaceCar" class="pukteam.course.spring.di.impl.vehicle.Car">

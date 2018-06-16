@@ -55,7 +55,7 @@ public abstract class AbstractTaxCalculator implements TaxCalculator, BeanNameAw
         logger.info("bean [{}]: Calculating tax information for person id [{}]. Income: {}", beanName, person.getId(), personIncome);
         TaxLimit taxLimit = taxLimitRepository
                 .stream()
-                .filter(taxLimits -> taxLimits.getLowerBoundIncome() < personIncome)
+                .filter(taxLimits -> taxLimits.getBoundedIncome() < personIncome)
                 .findFirst()
                 .orElseGet(() -> new TaxLimit(0, 0));
 

@@ -12,23 +12,11 @@ import javax.annotation.Resource;
 
 public abstract class AbstractTaxCalculatorFactory implements TaxCalculatorFactory {
 
-    private int femaleBoost;
-
     @Resource
-    private LightTaxCalculator lightTaxCalculator;
+    protected LightTaxCalculator lightTaxCalculator;
     
     @Resource
-    private ExpertTaxCalculator expertTaxCalculator;
-
-    protected AbstractTaxCalculatorFactory(int femaleBoost) {
-        this.femaleBoost = femaleBoost;
-    }
-
-    @PostConstruct
-    private void init() {
-        lightTaxCalculator.setBoost(femaleBoost);
-        expertTaxCalculator.setBoost(femaleBoost);
-    }
+    protected ExpertTaxCalculator expertTaxCalculator;
 
     @Override
     public TaxCalculator obtainCalculator(TaxCalculatorMode mode) {

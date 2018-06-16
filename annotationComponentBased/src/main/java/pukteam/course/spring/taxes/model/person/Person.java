@@ -24,14 +24,12 @@ public class Person {
     @Autowired
     private Counter counter;
 
-    public Person(int id, String name, int income) {
+    public Person(int id, String name) {
         this.id = id;
         this.name = name;
-        this.income = income;
     }
 
-    @PostConstruct
-    public void initializationValidation() {
+    protected void init() {
         logger.info("Performing initialization validation on person {}", id);
 
         if (counter == null) {
@@ -67,6 +65,10 @@ public class Person {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setIncome(int income) {
+        this.income = income;
     }
 
     public int getId() {

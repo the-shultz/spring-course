@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
 
         AnnotationConfigApplicationContext ctx =
-                new AnnotationConfigApplicationContext("pukteam.course.spring.taxes.model", "pukteam.course.spring.taxes.limit", "pukteam.course.spring.taxes.calculator");
+                new AnnotationConfigApplicationContext("pukteam.course.spring.taxes.model", "pukteam.course.spring.taxes.limit", "pukteam.course.spring.taxes.calculator", "pukteam.course.spring.taxes.conf");
         
         ctx.registerShutdownHook();
 

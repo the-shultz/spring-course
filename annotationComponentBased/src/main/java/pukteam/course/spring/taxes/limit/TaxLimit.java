@@ -8,21 +8,32 @@ import org.springframework.beans.factory.InitializingBean;
 public class TaxLimit implements Comparable<TaxLimit>, InitializingBean, DisposableBean{
 
     private static Logger logger = LogManager.getLogger(TaxLimit.class);
-    private int lowerBoundIncome;
+    private int boundedIncome;
     private int taxPercent;
 
-    public TaxLimit(int lowerBoundIncome, int taxPercent) {
-        this.lowerBoundIncome = lowerBoundIncome;
-        this.taxPercent = taxPercent;
-    }
-    
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        logger.info("Creating tax limit successfully with lower income of {} and tax percent of {}", lowerBoundIncome, taxPercent);
+    public TaxLimit() {
     }
 
-    public int getLowerBoundIncome() {
-        return lowerBoundIncome;
+    public TaxLimit(int boundedIncome, int taxPercent) {
+        this.boundedIncome = boundedIncome;
+        this.taxPercent = taxPercent;
+    }
+
+    public void setBoundedIncome(int boundedIncome) {
+        this.boundedIncome = boundedIncome;
+    }
+
+    public void setTaxPercent(int taxPercent) {
+        this.taxPercent = taxPercent;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        logger.info("Creating tax limit successfully with lower income of {} and tax percent of {}", boundedIncome, taxPercent);
+    }
+
+    public int getBoundedIncome() {
+        return boundedIncome;
     }
 
     public int getTaxPercent() {
@@ -30,7 +41,7 @@ public class TaxLimit implements Comparable<TaxLimit>, InitializingBean, Disposa
     }
 
     public int compareTo(TaxLimit other) {
-        return this.lowerBoundIncome - other.lowerBoundIncome;
+        return this.boundedIncome - other.boundedIncome;
     }
 
     @Override
@@ -40,18 +51,18 @@ public class TaxLimit implements Comparable<TaxLimit>, InitializingBean, Disposa
 
         TaxLimit taxLimit = (TaxLimit) o;
 
-        return lowerBoundIncome == taxLimit.lowerBoundIncome;
+        return boundedIncome == taxLimit.boundedIncome;
     }
 
     @Override
     public int hashCode() {
-        return lowerBoundIncome;
+        return boundedIncome;
     }
 
     @Override
     public String toString() {
         return "TaxLimit{" +
-                "lowerBoundIncome=" + lowerBoundIncome +
+                "boundedIncome=" + boundedIncome +
                 ", taxPercent=" + taxPercent +
                 '}';
     }
