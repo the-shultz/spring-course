@@ -1,39 +1,33 @@
-package pukteam.course.spring.taxes.calculator;
+package pukteam.course.spring.taxes.calculator.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanNameAware;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
+import pukteam.course.spring.taxes.calculator.TaxCalculator;
+import pukteam.course.spring.taxes.limit.TaxLimit;
+import pukteam.course.spring.taxes.limit.repository.TaxLimitRepository;
 import pukteam.course.spring.taxes.model.Gender;
 import pukteam.course.spring.taxes.model.person.Person;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.List;
 
-@Component
-public class TaxCalculatorImpl implements TaxCalculator, BeanNameAware, ApplicationContextAware {
+public abstract class AbstractTaxCalculator implements TaxCalculator, BeanNameAware {
 
-    private static Logger logger = LogManager.getLogger(TaxCalculatorImpl.class);
-    private List<TaxLimit> taxLimits;
+    private static Logger logger = LogManager.getLogger(AbstractTaxCalculator.class);
+
     private int boost;
     private String beanName;
-    private ApplicationContext applicationContext;
+    private TaxLimitRepository taxLimitRepository;
     private int electionDiscount;
 
-    @Autowired
-    public TaxCalculatorImpl(List<TaxLimit> taxLimits, int boost) {
-        this.taxLimits = taxLimits;
-        this.boost = boost;
+    public AbstractTaxCalculator(TaxLimitRepository taxLimitRepository) {
+        this.taxLimitRepository = taxLimitRepository;
     }
 
     @PostConstruct
     public void init() {
-        if (taxLimits.size() > 1 && Math.random() > 0.5 ) {
+        if (taxLimitRepository.size() > 1 && Math.random() > 0.5 ) {
             electionDiscount = 100;
         } else {
             electionDiscount = 0;
@@ -46,6 +40,10 @@ public class TaxCalculatorImpl implements TaxCalculator, BeanNameAware, Applicat
         logger.info("destroying tax calculator...");
     }
 
+    public void setBoost(int boost) {
+        this.boost = boost;
+    }
+
     public int calc(final Person person) {
 
         if (person.getAge() < 18 ) {
@@ -55,7 +53,7 @@ public class TaxCalculatorImpl implements TaxCalculator, BeanNameAware, Applicat
 
         int personIncome = person.getIncome();
         logger.info("bean [{}]: Calculating tax information for person id [{}]. Income: {}", beanName, person.getId(), personIncome);
-        TaxLimit taxLimit = taxLimits
+        TaxLimit taxLimit = taxLimitRepository
                 .stream()
                 .filter(taxLimits -> taxLimits.getLowerBoundIncome() < personIncome)
                 .findFirst()
@@ -67,7 +65,7 @@ public class TaxCalculatorImpl implements TaxCalculator, BeanNameAware, Applicat
 
         logger.debug("Person tax is set to {}", taxDeduction);
         if (Gender.FEMALE.equals(person.getGender())) {
-            logger.debug("Person gender is FEMALE. reducing her taxes with {}", taxDeduction, boost);
+            logger.debug("Person gender is FEMALE. reducing her taxes with {} (was originally {})", boost, taxDeduction);
             taxDeduction -= boost;
             taxDeduction = Math.max(0, taxDeduction);
         }
@@ -86,8 +84,4 @@ public class TaxCalculatorImpl implements TaxCalculator, BeanNameAware, Applicat
         this.beanName = beanName;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
 }

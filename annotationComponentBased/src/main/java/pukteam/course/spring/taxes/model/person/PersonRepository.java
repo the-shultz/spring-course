@@ -4,17 +4,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.Set;
 import java.util.stream.Stream;
 
-@Component
+@Repository
 public class PersonRepository {
 
     private static Logger logger = LogManager.getLogger(PersonRepository.class);
 
-    @Autowired
+    @Resource
     private Set<Person> persons;
     
     @PostConstruct

@@ -4,10 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import pukteam.course.spring.taxes.calculator.TaxCalculator;
-import pukteam.course.spring.taxes.conf.TaxConfiguration;
+import pukteam.course.spring.taxes.calculator.factory.TaxCalculatorFactory;
+import pukteam.course.spring.taxes.calculator.factory.TaxCalculatorMode;
 import pukteam.course.spring.taxes.model.person.PersonRepository;
-
-import java.util.Map;
 
 public class Main {
 
@@ -16,16 +15,21 @@ public class Main {
     public static void main(String[] args) {
 
         AnnotationConfigApplicationContext ctx =
-                new AnnotationConfigApplicationContext(TaxConfiguration.class);
+                new AnnotationConfigApplicationContext("pukteam.course.spring.taxes.model", "pukteam.course.spring.taxes.limit", "pukteam.course.spring.taxes.calculator");
         
         ctx.registerShutdownHook();
 
         logger.info("====   Starting main work   ====");
-        TaxCalculator calculator = ctx.getBean("taxes-calc-light", TaxCalculator.class);
+        TaxCalculatorFactory westernTaxCalculatorFactory = ctx.getBean("westernTaxCalculatorFactory", TaxCalculatorFactory.class);
+        TaxCalculator taxCalculator = westernTaxCalculatorFactory.obtainCalculator(TaxCalculatorMode.LIGHT);
+
+//        TaxCalculatorFactory handmaidTaleTaxCalculatorFactory = ctx.getBean("handmaidTaleTaxCalculatorFactory", TaxCalculatorFactory.class);
+//        TaxCalculator taxCalculator = handmaidTaleTaxCalculatorFactory.obtainCalculator(TaxCalculatorMode.LIGHT);
+
         PersonRepository personRepository = ctx.getBean("personRepository", PersonRepository.class);
 
         personRepository.stream().forEach( person -> {
-            int taxRate = calculator.calc(person);
+            int taxRate = taxCalculator.calc(person);
             logger.info("{} has income of {} and needs to pay tax: {}", person.getName(), person.getIncome(), taxRate);
         });
 

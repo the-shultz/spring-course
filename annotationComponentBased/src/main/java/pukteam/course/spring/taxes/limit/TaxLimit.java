@@ -1,4 +1,4 @@
-package pukteam.course.spring.taxes.calculator;
+package pukteam.course.spring.taxes.limit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
