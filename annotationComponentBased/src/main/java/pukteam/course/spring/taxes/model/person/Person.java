@@ -3,6 +3,8 @@ package pukteam.course.spring.taxes.model.person;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
+import pukteam.course.spring.taxes.event.PersonInquiryEvent;
 import pukteam.course.spring.taxes.model.Counter;
 import pukteam.course.spring.taxes.model.Gender;
 import pukteam.course.spring.taxes.model.Status;
@@ -43,6 +45,15 @@ public class Person {
 
         if (income < 0) {
             logger.error("Error ! person #{} has negative income !! {}", id, income);
+        }
+    }
+
+    @EventListener
+    public void beingInquired(PersonInquiryEvent event) {
+        if (event.getPersonId() == id) {
+            logger.info("Damn these IRS. they got onto me ! [{} - {}]", id, name);
+        } else {
+            logger.info("phewww... it's not me [{} - {}] they are after !", id, name);
         }
     }
 

@@ -3,7 +3,10 @@ package pukteam.course.spring.taxes.calculator.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import pukteam.course.spring.taxes.calculator.TaxCalculator;
+import pukteam.course.spring.taxes.event.PersonInquiryEvent;
 import pukteam.course.spring.taxes.limit.TaxLimit;
 import pukteam.course.spring.taxes.limit.repository.TaxLimitRepository;
 import pukteam.course.spring.taxes.model.Gender;
@@ -20,6 +23,9 @@ public abstract class AbstractTaxCalculator implements TaxCalculator, BeanNameAw
     private String beanName;
     private TaxLimitRepository taxLimitRepository;
     private int electionDiscount;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     public AbstractTaxCalculator(TaxLimitRepository taxLimitRepository) {
         this.taxLimitRepository = taxLimitRepository;
@@ -50,6 +56,8 @@ public abstract class AbstractTaxCalculator implements TaxCalculator, BeanNameAw
             logger.warn("Not calculating taxes for minors...");
             return 0;
         }
+        // publish event that a person is being investigated
+        applicationContext.publishEvent(new PersonInquiryEvent(this, person.getId()));
 
         int personIncome = person.getIncome();
         logger.info("bean [{}]: Calculating tax information for person id [{}]. Income: {}", beanName, person.getId(), personIncome);
