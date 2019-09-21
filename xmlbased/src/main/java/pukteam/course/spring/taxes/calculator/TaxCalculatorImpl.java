@@ -9,12 +9,10 @@ import java.util.*;
 public class TaxCalculatorImpl implements TaxCalculator {
 
     private static Logger logger = LogManager.getLogger(TaxCalculatorImpl.class);
-    private Set<TaxLimit> taxLimits;
+    private List<TaxLimit> taxLimits;
 
-    public TaxCalculatorImpl(TaxLimit lower, TaxLimit upper) {
-        taxLimits = new TreeSet<>();
-        taxLimits.add(lower);
-        taxLimits.add(upper);
+    public TaxCalculatorImpl(List<TaxLimit> taxLimits) {
+        this.taxLimits = taxLimits;
     }
 
     public int calc(final Person person) {
