@@ -19,4 +19,20 @@
           p:gender="MALE">
     </bean>
 
+    <bean id="mrs-smith" class="pukteam.course.spring.imdb.model.Movie"
+        p:mainActor-ref="julia-Roberts"
+        p:secondaryActor-ref="brad-pitt">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="Mr and MRS smith"/>
+        <constructor-arg name="genre" value="ACTION"/>
+    </bean>
+
+    <bean id="oshen-11" class="pukteam.course.spring.imdb.model.Movie">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="Mr and MRS smith"/>
+        <constructor-arg name="genre" value="ACTION"/>
+        <property name="mainActor" ref="brad-pitt"/>
+        <property name="secondaryActor" ref="julia-Roberts"/>
+    </bean>
+
 </beans>
