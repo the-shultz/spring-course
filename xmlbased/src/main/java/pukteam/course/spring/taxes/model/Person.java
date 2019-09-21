@@ -8,19 +8,13 @@ public class Person {
     private Gender gender;
     private Status status;
 
-    public Person() {
-    }
-
-    public void setId(int id) {
+    public Person(int id, int income) {
         this.id = id;
+        this.income = income;
     }
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public void setIncome(int income) {
-        this.income = income;
     }
 
     public void setGender(Gender gender) {

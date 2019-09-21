@@ -11,10 +11,10 @@ public class TaxCalculatorImpl implements TaxCalculator {
     private static Logger logger = LogManager.getLogger(TaxCalculatorImpl.class);
     private Set<TaxLimit> taxLimits;
 
-    public TaxCalculatorImpl() {
+    public TaxCalculatorImpl(TaxLimit lower, TaxLimit upper) {
         taxLimits = new TreeSet<>();
-        taxLimits.add(new TaxLimit(10000, 20));
-        taxLimits.add(new TaxLimit(20000, 30));
+        taxLimits.add(lower);
+        taxLimits.add(upper);
     }
 
     public int calc(final Person person) {
