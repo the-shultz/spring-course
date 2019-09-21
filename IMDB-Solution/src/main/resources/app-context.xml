@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
@@ -15,24 +16,84 @@
     <bean id="brad-pitt" class="pukteam.course.spring.imdb.model.Actor"
           p:id="2"
           p:fullName="Brad pitt"
-          p:age="25"
+          p:age="45"
           p:gender="MALE">
     </bean>
 
+    <bean id="george-clooney" class="pukteam.course.spring.imdb.model.Actor"
+          p:id="3"
+          p:fullName="george clooney"
+          p:age="55"
+          p:gender="MALE">
+    </bean>
+
+    <util:list id="oshen11-actors" list-class="java.util.LinkedList">
+        <ref bean="julia-Roberts"/>
+        <ref bean="brad-pitt"/>
+        <ref bean="george-clooney"/>
+    </util:list>
+
+    <util:list id="mrs-smith-actors" list-class="java.util.LinkedList">
+        <ref bean="julia-Roberts"/>
+        <ref bean="brad-pitt"/>
+    </util:list>
+
     <bean id="mrs-smith" class="pukteam.course.spring.imdb.model.Movie"
-        p:mainActor-ref="julia-Roberts"
-        p:secondaryActor-ref="brad-pitt">
+        p:actorsInMovie-ref="mrs-smith-actors">
         <constructor-arg name="id" value="1"/>
         <constructor-arg name="name" value="Mr and MRS smith"/>
         <constructor-arg name="genre" value="ACTION"/>
     </bean>
 
     <bean id="oshen-11" class="pukteam.course.spring.imdb.model.Movie">
-        <constructor-arg name="id" value="1"/>
-        <constructor-arg name="name" value="Mr and MRS smith"/>
+        <constructor-arg name="id" value="2"/>
+        <constructor-arg name="name" value="oshen-11"/>
         <constructor-arg name="genre" value="ACTION"/>
-        <property name="mainActor" ref="brad-pitt"/>
-        <property name="secondaryActor" ref="julia-Roberts"/>
+        <property name="actorsInMovie" ref="oshen11-actors"/>
+    </bean>
+
+    <util:map id="moviesList">
+        <entry>
+            <key>
+                <value>2</value>
+            </key>
+            <ref bean="oshen-11"/>
+        </entry>
+        <entry>
+            <key>
+                <value>1</value>
+            </key>
+            <ref bean="mrs-smith"/>
+        </entry>
+    </util:map>
+
+    <util:map id="actorsList">
+        <entry>
+            <key>
+                <value>1</value>
+            </key>
+            <ref bean="julia-Roberts"/>
+        </entry>
+        <entry>
+            <key>
+                <value>2</value>
+            </key>
+            <ref bean="brad-pitt"/>
+        </entry>
+        <entry>
+            <key>
+                <value>3</value>
+            </key>
+            <ref bean="george-clooney"/>
+        </entry>
+    </util:map>
+
+    <bean id="actors-dao" class="pukteam.course.spring.imdb.dao.ActorDAO">
+        <constructor-arg name="actors" ref="actorsList"/>
+    </bean>
+
+    <bean id="movies-dao" class="pukteam.course.spring.imdb.dao.MovieDAO">
+        <property name="movies" ref="moviesList"/>
     </bean>
 
 </beans>

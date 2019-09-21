@@ -31,4 +31,19 @@ public class Actor {
                 ", gender=" + gender +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Actor actor = (Actor) o;
+
+        return id == actor.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
