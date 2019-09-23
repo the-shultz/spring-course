@@ -2,28 +2,29 @@ package pukteam.course.spring.imdb.main;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import pukteam.course.spring.imdb.dao.ActorDAO;
-import pukteam.course.spring.imdb.dao.MovieDAO;
 import pukteam.course.spring.imdb.model.Actor;
-import pukteam.course.spring.imdb.model.Movie;
+import pukteam.course.spring.imdb.service.api.IMDBService;
 
-import java.util.Collection;
+import java.util.List;
 
 public class RunImdbExample {
 
     public static void main(String[] args) {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
 
-        ActorDAO actorDAO = ctx.getBean("actors-dao", ActorDAO.class);
-        Collection<Actor> allActors = actorDAO.getAllActors();
-        System.out.println("\nActors:");
-        System.out.println("=======");
-        allActors.forEach(System.out::println);
+        IMDBService imdbService = ctx.getBean("IMDBService", IMDBService.class);
 
-        MovieDAO movieDAO = ctx.getBean("movies-dao", MovieDAO.class);
-        Collection<Movie> allMovies = movieDAO.getAllMovies();
-        System.out.println("\nMovies:");
-        System.out.println("=======");
-        allMovies.forEach(System.out::println);
+        imdbService
+                .getMovieByID(1)
+                .ifPresent(movie -> {
+                    System.out.println("Actors of movie 1:" + movie);
+                    List<Actor> actorsOfMovie = imdbService.getActorsOfMovie(1);
+                    actorsOfMovie.forEach(System.out::println);
+                });
+
+        imdbService.getActorByID(3).ifPresent(actor -> {
+            System.out.println("All movies of actor " + actor);
+            imdbService.getAllMoviesForActor(3).forEach(System.out::println);
+        });
     }
 }

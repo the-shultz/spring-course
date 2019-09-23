@@ -96,4 +96,15 @@
         <property name="movies" ref="moviesList"/>
     </bean>
 
+    <bean id="IMDBServiceFactory"
+          class="pukteam.course.spring.imdb.service.factory.IMDBServiceFactory"
+          factory-method="getInstance"/>
+
+    <bean id="IMDBService"
+          factory-bean="IMDBServiceFactory"
+          factory-method="getIMDBService">
+        <constructor-arg index="0" ref="actors-dao"/>
+        <constructor-arg index="1" ref="movies-dao"/>
+    </bean>
+
 </beans>

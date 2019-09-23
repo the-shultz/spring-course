@@ -22,6 +22,10 @@ public class Actor {
         this.gender = gender;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Actor{" +

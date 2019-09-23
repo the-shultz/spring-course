@@ -18,6 +18,14 @@ public class Movie {
         this.actorsInMovie = actorsInMovie;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public List<Actor> getActorsInMovie() {
+        return actorsInMovie;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
