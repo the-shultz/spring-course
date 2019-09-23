@@ -31,6 +31,18 @@ public class IMDBServiceImpl implements IMDBService {
     }
 
     @Override
+    public void init() {
+        movieDAO
+                .getAllMovies()
+                .forEach(movie ->
+                        movie
+                            .getActorsInMovie().forEach(actor -> {
+                                int movieRating = movie.getRating();
+                                actor.addMovieRating(movieRating);
+                            }));
+    }
+
+    @Override
     public Optional<Movie> getMovieByID(int movieId) {
         return movieDAO
                 .getAllMovies()
@@ -71,11 +83,11 @@ public class IMDBServiceImpl implements IMDBService {
                 .getAllMovies()
                 .forEach(movie -> {
                     movie
-                        .getActorsInMovie()
-                        .stream()
-                        .filter(actor -> actor.getId() == actorId)
-                        .findFirst()
-                        .ifPresent(actor -> movies.add(movie));
+                            .getActorsInMovie()
+                            .stream()
+                            .filter(actor -> actor.getId() == actorId)
+                            .findFirst()
+                            .ifPresent(actor -> movies.add(movie));
                 });
 
         return movies;

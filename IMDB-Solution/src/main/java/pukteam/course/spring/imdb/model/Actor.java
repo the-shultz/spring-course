@@ -5,6 +5,11 @@ public class Actor {
     private String fullName;
     private int age;
     private Gender gender;
+    private EgoMetrics egoMetrics;
+
+    public void setEgoMetrics(EgoMetrics egoMetrics) {
+        this.egoMetrics = egoMetrics;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -26,6 +31,10 @@ public class Actor {
         return id;
     }
 
+    public void addMovieRating(int movieRating) {
+        egoMetrics.addParticipatingMovieRating(movieRating);
+    }
+
     @Override
     public String toString() {
         return "Actor{" +
@@ -33,6 +42,7 @@ public class Actor {
                 ", fullName='" + fullName + '\'' +
                 ", age=" + age +
                 ", gender=" + gender +
+                ", egoMetrics=" + egoMetrics +
                 '}';
     }
 

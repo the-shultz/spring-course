@@ -10,6 +10,7 @@
         <property name="id" value="1"/>
         <property name="fullName" value="Julia Roberts"/>
         <property name="age" value="34"/>
+        <property name="egoMetrics" ref="ego-metrics"/>
         <property name="gender" value="FEMALE"/>
     </bean>
 
@@ -17,6 +18,7 @@
           p:id="2"
           p:fullName="Brad pitt"
           p:age="45"
+          p:egoMetrics-ref="ego-metrics"
           p:gender="MALE">
     </bean>
 
@@ -24,6 +26,7 @@
           p:id="3"
           p:fullName="george clooney"
           p:age="55"
+          p:egoMetrics-ref="ego-metrics"
           p:gender="MALE">
     </bean>
 
@@ -39,7 +42,8 @@
     </util:list>
 
     <bean id="mrs-smith" class="pukteam.course.spring.imdb.model.Movie"
-        p:actorsInMovie-ref="mrs-smith-actors">
+        p:actorsInMovie-ref="mrs-smith-actors"
+        p:rating="10">
         <constructor-arg name="id" value="1"/>
         <constructor-arg name="name" value="Mr and MRS smith"/>
         <constructor-arg name="genre" value="ACTION"/>
@@ -50,6 +54,7 @@
         <constructor-arg name="name" value="oshen-11"/>
         <constructor-arg name="genre" value="ACTION"/>
         <property name="actorsInMovie" ref="oshen11-actors"/>
+        <property name="rating" value="5"/>
     </bean>
 
     <util:map id="moviesList">
@@ -106,5 +111,7 @@
         <constructor-arg index="0" ref="actors-dao"/>
         <constructor-arg index="1" ref="movies-dao"/>
     </bean>
+
+    <bean id="ego-metrics" class="pukteam.course.spring.imdb.model.EgoMetrics" scope="prototype"/>
 
 </beans>

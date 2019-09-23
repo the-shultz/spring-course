@@ -3,10 +3,12 @@ package pukteam.course.spring.imdb.model;
 import java.util.List;
 
 public class Movie {
+
     private int id;
     private String name;
     private Genre genre;
     private List<Actor> actorsInMovie;
+    private int rating;
 
     public Movie(int id, String name, Genre genre) {
         this.id = id;
@@ -18,12 +20,20 @@ public class Movie {
         this.actorsInMovie = actorsInMovie;
     }
 
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     public int getId() {
         return id;
     }
 
     public List<Actor> getActorsInMovie() {
         return actorsInMovie;
+    }
+
+    public int getRating() {
+        return rating;
     }
 
     @Override
@@ -33,6 +43,7 @@ public class Movie {
                 ", name='" + name + '\'' +
                 ", genre=" + genre +
                 ", actorsInMovie=" + actorsInMovie +
+                ", rating=" + rating +
                 '}';
     }
 

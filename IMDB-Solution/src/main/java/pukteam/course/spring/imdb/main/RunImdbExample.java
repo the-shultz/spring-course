@@ -13,6 +13,7 @@ public class RunImdbExample {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("app-context.xml");
 
         IMDBService imdbService = ctx.getBean("IMDBService", IMDBService.class);
+        imdbService.init();
 
         imdbService
                 .getMovieByID(1)
