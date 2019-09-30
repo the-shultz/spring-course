@@ -33,8 +33,8 @@
 
     <bean id="calculatorFromFactory"
           factory-bean="taxCalculatorFactory"
-          factory-method="obtainCalculator">
-        <constructor-arg ref="taxRates"/>
+          factory-method="obtainCalculator" autowire="constructor">
+
     </bean>
 
     <bean id="menash" class="pukteam.course.spring.taxes.model.Person">
@@ -88,5 +88,11 @@
     <bean id="incomeRequestCounter"
           class="pukteam.course.spring.taxes.model.Counter"
           scope="prototype"/>
+
+    <bean id="a" class="pukteam.course.spring.autowire.A" autowire="constructor"/>
+
+    <bean id="b" class="pukteam.course.spring.autowire.B" autowire="byType"/>
+
+    <bean id="c" class="pukteam.course.spring.autowire.C"/>
 
 </beans>
