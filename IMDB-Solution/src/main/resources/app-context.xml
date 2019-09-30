@@ -107,9 +107,9 @@
 
     <bean id="IMDBService"
           factory-bean="IMDBServiceFactory"
-          factory-method="getIMDBService">
-        <constructor-arg index="0" ref="actors-dao"/>
-        <constructor-arg index="1" ref="movies-dao"/>
+          factory-method="getIMDBService"
+          autowire="constructor"
+          lazy-init="true">
     </bean>
 
     <bean id="ego-metrics" class="pukteam.course.spring.imdb.model.EgoMetrics" scope="prototype"/>

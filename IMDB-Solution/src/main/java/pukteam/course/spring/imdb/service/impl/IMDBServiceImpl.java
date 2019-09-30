@@ -18,6 +18,7 @@ public class IMDBServiceImpl implements IMDBService {
     public IMDBServiceImpl(ActorDAO actorDAO, MovieDAO movieDAO) {
         this.actorDAO = actorDAO;
         this.movieDAO = movieDAO;
+        init();
     }
 
     @Override
