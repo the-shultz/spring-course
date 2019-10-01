@@ -2,9 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
     <bean id="lowerTaxRate" class="pukteam.course.spring.taxes.calculator.TaxLimit">
         <constructor-arg index="0" value="10000"/>
@@ -34,13 +36,13 @@
     <bean id="calculatorFromFactory"
           factory-bean="taxCalculatorFactory"
           factory-method="obtainCalculator" autowire="constructor">
-
     </bean>
 
-    <bean id="menash" class="pukteam.course.spring.taxes.model.Person">
+    <bean id="menash" class="pukteam.course.spring.taxes.model.Person"
+            init-method="initializationValidation" destroy-method="destruction">
         <constructor-arg name="id" value="1"/>
         <constructor-arg name="income" value="4000"/>
-        <property name="age" value="34"/>
+        <property name="age" value="14"/>
         <property name="gender" value="MALE"/>
         <property name="status" value="SINGLE_PARENT"/>
         <property name="counter" ref="incomeRequestCounter"/>
@@ -50,13 +52,15 @@
           p:age="25"
           p:gender="FEMALE"
           p:status="SINGLE"
-          p:counter-ref="incomeRequestCounter">
+          p:counter-ref="incomeRequestCounter"
+          init-method="initializationValidation" destroy-method="destruction">
         <constructor-arg index="0" value="2"/>
         <constructor-arg index="1" value="40000"/>
     </bean>
 
-    <bean id="simcha" class="pukteam.course.spring.taxes.model.Person">
-        <constructor-arg name="id" value="1"/>
+    <bean id="simcha" class="pukteam.course.spring.taxes.model.Person"
+          init-method="initializationValidation" destroy-method="destruction">
+        <constructor-arg name="id" value="3"/>
         <constructor-arg index="1" value="40000"/>
         <property name="age" value="30"/>
         <property name="gender" value="OTHER"/>
