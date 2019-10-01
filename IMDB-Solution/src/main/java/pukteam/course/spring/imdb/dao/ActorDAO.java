@@ -2,6 +2,7 @@ package pukteam.course.spring.imdb.dao;
 
 import pukteam.course.spring.imdb.model.Actor;
 
+import javax.annotation.PreDestroy;
 import java.util.Collection;
 import java.util.Map;
 
@@ -17,4 +18,8 @@ public class ActorDAO {
         return actors.values();
     }
 
+    @PreDestroy
+    public void onDestroy() {
+        System.out.println("About to destroy Actors DAO...");
+    }
 }

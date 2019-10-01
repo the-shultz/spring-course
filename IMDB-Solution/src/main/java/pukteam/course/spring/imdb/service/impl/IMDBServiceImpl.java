@@ -6,6 +6,7 @@ import pukteam.course.spring.imdb.model.Actor;
 import pukteam.course.spring.imdb.model.Movie;
 import pukteam.course.spring.imdb.service.api.IMDBService;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,6 @@ public class IMDBServiceImpl implements IMDBService {
     public IMDBServiceImpl(ActorDAO actorDAO, MovieDAO movieDAO) {
         this.actorDAO = actorDAO;
         this.movieDAO = movieDAO;
-        init();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class IMDBServiceImpl implements IMDBService {
         return actorDAO.getAllActors().size();
     }
 
-    @Override
+    @PostConstruct
     public void init() {
         movieDAO
                 .getAllMovies()
