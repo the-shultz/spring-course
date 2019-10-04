@@ -1,6 +1,5 @@
-package pukteam.course.spring.imdb.main;
+package pukteam.course.spring.imdb.xml.main;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pukteam.course.spring.imdb.dao.ActorDAO;

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="julia-Roberts" class="pukteam.course.spring.imdb.model.Actor">
+        <property name="id" value="1"/>
+        <property name="fullName" value="Julia Roberts"/>
+        <property name="age" value="34"/>
+        <property name="egoMetrics" ref="ego-metrics"/>
+        <property name="gender" value="FEMALE"/>
+    </bean>
+
+    <bean id="brad-pitt" class="pukteam.course.spring.imdb.model.Actor"
+          p:id="2"
+          p:fullName="Brad pitt"
+          p:age="45"
+          p:egoMetrics-ref="ego-metrics"
+          p:gender="MALE">
+    </bean>
+
+    <bean id="george-clooney" class="pukteam.course.spring.imdb.model.Actor"
+          p:id="3"
+          p:fullName="george clooney"
+          p:age="55"
+          p:egoMetrics-ref="ego-metrics"
+          p:gender="MALE">
+    </bean>
+
+    <util:list id="oshen11-actors" list-class="java.util.LinkedList">
+        <ref bean="julia-Roberts"/>
+        <ref bean="brad-pitt"/>
+        <ref bean="george-clooney"/>
+    </util:list>
+
+    <util:list id="mrs-smith-actors">
+        <ref bean="julia-Roberts"/>
+        <ref bean="brad-pitt"/>
+    </util:list>
+
+    <util:map id="actorsList">
+        <entry>
+            <key>
+                <value>1</value>
+            </key>
+            <ref bean="julia-Roberts"/>
+        </entry>
+        <entry>
+            <key>
+                <value>2</value>
+            </key>
+            <ref bean="brad-pitt"/>
+        </entry>
+        <entry>
+            <key>
+                <value>3</value>
+            </key>
+            <ref bean="george-clooney"/>
+        </entry>
+    </util:map>
+
+    <bean id="ego-metrics" class="pukteam.course.spring.imdb.model.EgoMetrics" scope="prototype"/>
+
+</beans>
