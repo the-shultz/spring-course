@@ -69,11 +69,11 @@ public class ActorsConfiguration {
     }
 
     @Bean
-    public Map<String, Actor> allActors() {
-        Map<String, Actor> actorsMap = new HashMap<>();
-        actorsMap.put("Julia", juliaRoberts());
-        actorsMap.put("Brad", bradPitt());
-        actorsMap.put("George", georgeClooney());
+    public Map<Integer, Actor> allActors() {
+        Map<Integer, Actor> actorsMap = new HashMap<>();
+        actorsMap.put(3, juliaRoberts());
+        actorsMap.put(1, bradPitt());
+        actorsMap.put(2, georgeClooney());
         return actorsMap;
     }
 
