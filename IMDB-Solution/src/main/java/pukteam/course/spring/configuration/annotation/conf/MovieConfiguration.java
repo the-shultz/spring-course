@@ -1,11 +1,9 @@
-package pukteam.course.spring.imdb.annotation.conf;
+package pukteam.course.spring.configuration.annotation.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
 import pukteam.course.spring.imdb.model.Actor;
 import pukteam.course.spring.imdb.model.Genre;
 import pukteam.course.spring.imdb.model.Movie;

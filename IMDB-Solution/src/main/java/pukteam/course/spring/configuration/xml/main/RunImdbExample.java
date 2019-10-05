@@ -1,4 +1,4 @@
-package pukteam.course.spring.imdb.xml.main;
+package pukteam.course.spring.configuration.xml.main;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

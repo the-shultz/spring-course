@@ -1,6 +1,5 @@
-package pukteam.course.spring.imdb.annotation.conf;
+package pukteam.course.spring.configuration.annotation.conf;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pukteam.course.spring.imdb.dao.ActorDAO;

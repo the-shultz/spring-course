@@ -1,10 +1,8 @@
-package pukteam.course.spring.imdb.annotation.main;
+package pukteam.course.spring.configuration.annotation.main;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import pukteam.course.spring.imdb.annotation.conf.MainConfiguration;
-import pukteam.course.spring.imdb.annotation.conf.MovieConfiguration;
+import pukteam.course.spring.configuration.annotation.conf.MainConfiguration;
 import pukteam.course.spring.imdb.dao.ActorDAO;
 import pukteam.course.spring.imdb.dao.MovieDAO;
 import pukteam.course.spring.imdb.model.Actor;
