@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
-//@ImportResource("actors-context.xml")
-@Import(ActorsConfiguration.class)
 public class MovieConfiguration {
 
     @Autowired

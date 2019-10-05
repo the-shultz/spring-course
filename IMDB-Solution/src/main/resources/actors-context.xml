@@ -30,13 +30,13 @@
           p:gender="MALE">
     </bean>
 
-    <util:list id="oshen11-actors" list-class="java.util.LinkedList">
+    <util:list id="oshen11Actors">
         <ref bean="julia-Roberts"/>
         <ref bean="brad-pitt"/>
         <ref bean="george-clooney"/>
     </util:list>
 
-    <util:list id="mrs-smith-actors">
+    <util:list id="mrsSmithActors">
         <ref bean="julia-Roberts"/>
         <ref bean="brad-pitt"/>
     </util:list>
