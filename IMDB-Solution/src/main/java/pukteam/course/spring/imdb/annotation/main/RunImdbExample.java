@@ -36,6 +36,11 @@ public class RunImdbExample {
         ActorDAO actorDAO = ctx.getBean("actorsDAO", ActorDAO.class);
         actorDAO.getAllActors().forEach(System.out::println);
 
+        System.out.println("====== IMDB Service - All movies of brad pitt=====");
+        IMDBService imdbService = ctx.getBean("imdbService", IMDBService.class);
+        List<Movie> allMoviesForActor = imdbService.getAllMoviesForActor(1);
+        allMoviesForActor.forEach(System.out::println);
+
         System.out.println("======= MAIN DONE =======");
     }
 }

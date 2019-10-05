@@ -35,7 +35,7 @@ public class MovieConfiguration {
 
     @Bean
     public Movie oshens11() {
-        Movie movie = new Movie(1, "Oshen 11", Genre.ACTION);
+        Movie movie = new Movie(2, "Oshen 11", Genre.ACTION);
         movie.setActorsInMovie(oshen11actors);
         movie.setRating(5);
         return movie;
